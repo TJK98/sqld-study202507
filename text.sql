@@ -12,9 +12,9 @@
 -- =====================================================================
 -- 최종 수정 코드 (가장 확실한 버전)
 BEGIN
-    FOR c IN (SELECT object_name 
+    FOR c IN (SELECT object_name
               FROM all_objects
-              WHERE owner = USER 
+              WHERE owner = USER
                 AND object_type = 'TABLE'
                 AND oracle_maintained = 'N')
     LOOP
@@ -216,7 +216,7 @@ COMMIT;
 -- =====================================================================
 -- 파트 D-2: 팔로우 데이터 삽입 (DML - Curated Dummy Data)
 -- 컨셉: 사용자 간의 팔로우 관계 설정. N:M 관계 해소 테이블
--- 특징: 
+-- 특징:
 -- 1. 대부분의 유저는 3~10명의 다른 유저를 팔로우
 -- 2. 라이언(1), 피카츄(21)는 30명 이상의 팔로워를 가진 인플루언서로 설정
 -- =====================================================================
@@ -276,26 +276,26 @@ INSERT ALL
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (9, 32, TO_DATE('2022-01-12', 'YYYY-MM-DD')) -- mewtwo (다른 그룹 리더)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (9, 40, TO_DATE('2022-01-13', 'YYYY-MM-DD')) -- prof_oak
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (9, 21, TO_DATE('2023-01-11', 'YYYY-MM-DD')) -- pikachu
-    
+
     -- 10. my_melody (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (10, 9, TO_DATE('2022-06-02', 'YYYY-MM-DD')) -- hello_kitty
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (10, 11, TO_DATE('2022-06-02', 'YYYY-MM-DD')) -- kuromi (라이벌이자 친구)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (10, 1, TO_DATE('2022-06-03', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (10, 21, TO_DATE('2023-06-02', 'YYYY-MM-DD')) -- pikachu
-    
+
     -- 11. kuromi (팔로잉: 5명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (11, 9, TO_DATE('2022-06-03', 'YYYY-MM-DD')) -- hello_kitty
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (11, 10, TO_DATE('2022-06-03', 'YYYY-MM-DD')) -- my_melody (라이벌)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (11, 15, TO_DATE('2022-06-04', 'YYYY-MM-DD')) -- badtz_maru (악동 친구)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (11, 30, TO_DATE('2022-06-05', 'YYYY-MM-DD')) -- gengar (악동 친구)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (11, 1, TO_DATE('2022-06-06', 'YYYY-MM-DD')) -- ryan
-    
+
     -- 12. cinnamoroll (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (12, 9, TO_DATE('2022-07-02', 'YYYY-MM-DD')) -- hello_kitty
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (12, 17, TO_DATE('2022-07-03', 'YYYY-MM-DD')) -- kiki
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (12, 18, TO_DATE('2022-07-03', 'YYYY-MM-DD')) -- lala
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (12, 21, TO_DATE('2023-07-02', 'YYYY-MM-DD')) -- pikachu
-    
+
     -- 13. pompompurin (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (13, 9, TO_DATE('2022-07-06', 'YYYY-MM-DD')) -- hello_kitty
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (13, 16, TO_DATE('2022-07-07', 'YYYY-MM-DD')) -- gudetama (느긋함)
@@ -367,13 +367,13 @@ INSERT ALL
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (23, 38, TO_DATE('2021-09-06', 'YYYY-MM-DD')) -- piplup (물타입 동료)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (23, 1, TO_DATE('2022-09-04', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (23, 20, TO_DATE('2022-09-05', 'YYYY-MM-DD')) -- hangyodon (물 친구)
-    
+
     -- 24. bulbasaur (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (24, 21, TO_DATE('2021-09-05', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (24, 14, TO_DATE('2021-09-06', 'YYYY-MM-DD')) -- keroppi (풀타입 친구)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (24, 1, TO_DATE('2022-09-05', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (24, 5, TO_DATE('2022-09-06', 'YYYY-MM-DD')) -- muzi
-    
+
     -- 25. jigglypuff (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (25, 21, TO_DATE('2021-10-11', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (25, 37, TO_DATE('2021-10-12', 'YYYY-MM-DD')) -- togepi
@@ -385,7 +385,7 @@ INSERT ALL
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (26, 13, TO_DATE('2021-10-17', 'YYYY-MM-DD')) -- pompompurin
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (26, 16, TO_DATE('2021-10-18', 'YYYY-MM-DD')) -- gudetama
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (26, 2, TO_DATE('2021-10-19', 'YYYY-MM-DD')) -- choonsik
-    
+
     -- 27. eevee (팔로잉: 5명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (27, 21, TO_DATE('2021-11-02', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (27, 34, TO_DATE('2021-11-03', 'YYYY-MM-DD')) -- ditto
@@ -398,13 +398,13 @@ INSERT ALL
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (28, 8, TO_DATE('2021-11-07', 'YYYY-MM-DD')) -- neo (고양이)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (28, 1, TO_DATE('2022-11-06', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (28, 21, TO_DATE('2022-11-06', 'YYYY-MM-DD')) -- pikachu
-    
+
     -- 29. psyduck (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (29, 21, TO_DATE('2021-12-02', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (29, 40, TO_DATE('2021-12-03', 'YYYY-MM-DD')) -- prof_oak
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (29, 1, TO_DATE('2022-12-02', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (29, 9, TO_DATE('2022-12-03', 'YYYY-MM-DD')) -- hello_kitty
-    
+
     -- 30. gengar (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (30, 21, TO_DATE('2021-12-11', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (30, 11, TO_DATE('2021-12-12', 'YYYY-MM-DD')) -- kuromi
@@ -416,37 +416,37 @@ INSERT ALL
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (31, 21, TO_DATE('2022-01-22', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (31, 36, TO_DATE('2022-01-23', 'YYYY-MM-DD')) -- gyarados
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (31, 1, TO_DATE('2023-01-21', 'YYYY-MM-DD')) -- ryan
-    
+
     -- 32. mewtwo (팔로잉: 5명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (32, 40, TO_DATE('2021-01-02', 'YYYY-MM-DD')) -- prof_oak
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (32, 33, TO_DATE('2021-01-03', 'YYYY-MM-DD')) -- mew
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (32, 1, TO_DATE('2022-01-02', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (32, 9, TO_DATE('2022-01-02', 'YYYY-MM-DD')) -- hello_kitty
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (32, 21, TO_DATE('2023-01-02', 'YYYY-MM-DD')) -- pikachu
-    
+
     -- 33. mew (팔로잉: 5명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (33, 32, TO_DATE('2021-01-03', 'YYYY-MM-DD')) -- mewtwo
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (33, 21, TO_DATE('2021-01-04', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (33, 27, TO_DATE('2021-01-05', 'YYYY-MM-DD')) -- eevee
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (33, 1, TO_DATE('2022-01-03', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (33, 9, TO_DATE('2022-01-03', 'YYYY-MM-DD')) -- hello_kitty
-    
+
     -- 34. ditto (팔로잉: 3명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (34, 33, TO_DATE('2022-02-03', 'YYYY-MM-DD')) -- mew
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (34, 21, TO_DATE('2023-02-03', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (34, 1, TO_DATE('2023-02-03', 'YYYY-MM-DD')) -- ryan
-    
+
     -- 35. magikarp (팔로잉: 3명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (35, 36, TO_DATE('2023-04-03', 'YYYY-MM-DD')) -- gyarados (진화형)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (35, 21, TO_DATE('2023-03-04', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (35, 1, TO_DATE('2023-03-04', 'YYYY-MM-DD')) -- ryan
-    
+
     -- 36. gyarados (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (36, 35, TO_DATE('2023-04-05', 'YYYY-MM-DD')) -- magikarp (과거의 나)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (36, 31, TO_DATE('2023-04-06', 'YYYY-MM-DD')) -- dragonite
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (36, 21, TO_DATE('2023-04-07', 'YYYY-MM-DD')) -- pikachu
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (36, 1, TO_DATE('2023-04-08', 'YYYY-MM-DD')) -- ryan
-    
+
     -- 37. togepi (팔로잉: 4명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (37, 25, TO_DATE('2023-05-06', 'YYYY-MM-DD')) -- jigglypuff
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (37, 21, TO_DATE('2023-05-07', 'YYYY-MM-DD')) -- pikachu
@@ -465,7 +465,7 @@ INSERT ALL
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (39, 28, TO_DATE('2022-02-28', 'YYYY-MM-DD')) -- meowth
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (39, 1, TO_DATE('2023-02-26', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (39, 9, TO_DATE('2023-02-26', 'YYYY-MM-DD')) -- hello_kitty
-    
+
     -- 40. prof_oak (팔로잉: 3명)
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (40, 1, TO_DATE('2020-01-10', 'YYYY-MM-DD')) -- ryan
     INTO FOLLOWS (follower_id, following_id, creation_date) VALUES (40, 9, TO_DATE('2020-01-10', 'YYYY-MM-DD')) -- hello_kitty
@@ -513,7 +513,7 @@ INSERT ALL
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (22, 3, '복숭아 농장에서! #과즙미뿜뿜 #여행스타그램 #주말', 'video', TO_TIMESTAMP('2024-05-02 15:20:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (23, 3, '리틀어피치랑 장난치기! 꺄르르~ #카카오프렌즈 #귀요미', 'video', TO_TIMESTAMP('2024-05-10 17:45:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (24, 3, '새로 산 리본 자랑. #오오티디 #데일리룩 #패션', 'photo', TO_TIMESTAMP('2024-05-19 12:00:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 5. muzi & con (3개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (25, 5, '콘이랑 같이 토끼 옷 입고 찰칵! #카카오프렌즈 #우정스타그램', 'photo', TO_TIMESTAMP('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (26, 6, '무지를 키우는 건 정말 힘들어... #육아일기 #일상', 'photo', TO_TIMESTAMP('2024-03-20 22:00:00', 'YYYY-MM-DD HH24:MI:SS'))
@@ -577,16 +577,16 @@ INSERT ALL
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (72, 22, '내 꼬리 불꽃, 멋지지 않아? #파이리 #포켓몬 #일상', 'photo', TO_TIMESTAMP('2023-09-01 10:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (73, 22, '언젠가 리자몽이 될 거야! #포켓몬 #다짐', 'photo', TO_TIMESTAMP('2024-05-15 14:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (74, 22, '매운 음식 도전! #불꽃타입 #먹스타그램', 'video', TO_TIMESTAMP('2024-05-20 19:00:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 23. squirtle (3개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (75, 23, '선글라스 장착! #꼬부기단 #포켓몬 #오오티디', 'photo', TO_TIMESTAMP('2023-07-07 13:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (76, 23, '물대포 발사! #물장난 #포켓몬', 'video', TO_TIMESTAMP('2024-05-11 15:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (77, 23, '바다 수영은 즐거워! #여행스타그램 #여름 #포켓몬', 'photo', TO_TIMESTAMP('2024-05-19 14:30:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 24. bulbasaur (2개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (78, 24, '등에서 씨앗이 자라고 있어. #광합성 #포켓몬 #일상', 'photo', TO_TIMESTAMP('2024-04-22 09:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (79, 24, '덩쿨채찍 연습! #포켓몬 #훈련', 'video', TO_TIMESTAMP('2024-05-18 10:00:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 25. jigglypuff (2개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (80, 25, '내 노래를 들어줘! #자장가 #노래 #포켓몬', 'video', TO_TIMESTAMP('2023-12-24 22:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (81, 25, '또 다들 내 노래 듣다가 잠들었어... #낙서해야지 #푸린 #포켓몬 #일상', 'photo', TO_TIMESTAMP('2024-05-17 23:00:00', 'YYYY-MM-DD HH24:MI:SS'))
@@ -594,18 +594,18 @@ INSERT ALL
     -- 26. snorlax (2개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (82, 26, 'Zzzzz.... #잠만보 #일상 #힐링', 'photo', TO_TIMESTAMP('2023-03-10 14:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (83, 26, '밥... 어디 없나... #먹스타그램 #잠만보', 'photo', TO_TIMESTAMP('2024-03-20 13:00:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 27. eevee (3개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (84, 27, '어떤 모습으로 진화할까? #고민중 #포켓몬', 'photo', TO_TIMESTAMP('2023-11-15 18:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (85, 27, '피카츄랑 같이 놀기! #친구 #우정스타그램 #포켓몬 #귀요미', 'photo', TO_TIMESTAMP('2024-05-12 16:30:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (86, 27, '꼬리 살랑살랑~ #애교 #귀요미 #포켓몬', 'video', TO_TIMESTAMP('2024-05-16 11:45:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 34. ditto (1개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (87, 34, '메타몽! (피카츄로 변신했다) #변신 #포켓몬 #귀요미', 'photo', TO_TIMESTAMP('2024-05-10 10:10:10', 'YYYY-MM-DD HH24:MI:SS'))
 
     -- 36. gyarados (1개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (88, 36, '잉어킹 시절을 잊지 말자. 파괴광선! #포켓몬 #진화', 'photo', TO_TIMESTAMP('2024-05-08 20:00:00', 'YYYY-MM-DD HH24:MI:SS'))
-    
+
     -- 40. prof_oak (2개)
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (89, 40, '새로운 포켓몬 연구 결과를 발표하네. #포켓몬 #연구 #일상', 'photo', TO_TIMESTAMP('2023-09-15 09:00:00', 'YYYY-MM-DD HH24:MI:SS'))
     INTO POSTS (post_id, user_id, content, post_type, creation_date) VALUES (90, 40, '모두 포켓몬 도감을 채우는 것을 잊지 말게나! #포켓몬 #모험', 'photo', TO_TIMESTAMP('2024-05-21 10:00:00', 'YYYY-MM-DD HH24:MI:SS'))
@@ -1060,7 +1060,7 @@ COMMIT;
 -- =====================================================================
 -- 파트 D-6: 좋아요 데이터 삽입 (DML - Curated Dummy Data)
 -- 컨셉: 사용자가 게시물에 '좋아요'를 누른 기록. USERS와 POSTS의 N:M 관계.
--- 특징: 
+-- 특징:
 -- 1. 대부분의 게시물에 1~20개의 좋아요를 골고루 분포
 -- 2. 특정 게시물(2, 58, 67번)에 30개 이상의 좋아요를 집중시켜 Top-N, 윈도우 함수 실습 최적화
 -- =====================================================================
@@ -1242,7 +1242,7 @@ INSERT ALL
     INTO LIKES (user_id, post_id, creation_date) VALUES (37, 67, TO_DATE('2024-05-17', 'YYYY-MM-DD'))
     INTO LIKES (user_id, post_id, creation_date) VALUES (38, 67, TO_DATE('2024-05-17', 'YYYY-MM-DD'))
     INTO LIKES (user_id, post_id, creation_date) VALUES (39, 67, TO_DATE('2024-05-17', 'YYYY-MM-DD'))
-    
+
     -- 기타 게시물에 대한 '좋아요' 데이터 (일부)
     INTO LIKES (user_id, post_id, creation_date) VALUES (1, 80, TO_DATE('2023-12-25', 'YYYY-MM-DD')) -- 푸린의 노래
     INTO LIKES (user_id, post_id, creation_date) VALUES (21, 80, TO_DATE('2023-12-25', 'YYYY-MM-DD'))
@@ -1271,7 +1271,7 @@ INSERT ALL
 		INTO LIKES (user_id, post_id, creation_date) VALUES (7, 3, TO_DATE('2022-11-08', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (8, 3, TO_DATE('2022-11-08', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (21, 3, TO_DATE('2022-11-09', 'YYYY-MM-DD'))
-	
+
 		-- Post 4 (라이언) - Likes: 18
 		INTO LIKES (user_id, post_id, creation_date) VALUES (2, 4, TO_DATE('2023-01-01', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (3, 4, TO_DATE('2023-01-01', 'YYYY-MM-DD'))
@@ -1291,7 +1291,7 @@ INSERT ALL
 		INTO LIKES (user_id, post_id, creation_date) VALUES (33, 4, TO_DATE('2023-01-05', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (39, 4, TO_DATE('2023-01-06', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (40, 4, TO_DATE('2023-01-06', 'YYYY-MM-DD'))
-		
+
 		-- Post 21 (어피치) - Likes: 9
 		INTO LIKES (user_id, post_id, creation_date) VALUES (1, 21, TO_DATE('2023-08-15', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (4, 21, TO_DATE('2023-08-15', 'YYYY-MM-DD'))
@@ -1309,7 +1309,7 @@ INSERT ALL
 		INTO LIKES (user_id, post_id, creation_date) VALUES (2, 31, TO_DATE('2024-05-19', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (3, 31, TO_DATE('2024-05-20', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (5, 31, TO_DATE('2024-05-20', 'YYYY-MM-DD'))
-	
+
 		-- Post 46 (쿠로미) - Likes: 6
 		INTO LIKES (user_id, post_id, creation_date) VALUES (10, 46, TO_DATE('2023-10-01', 'YYYY-MM-DD')) -- 라이벌 마이멜로디가 좋아요!
 		INTO LIKES (user_id, post_id, creation_date) VALUES (9, 46, TO_DATE('2023-10-02', 'YYYY-MM-DD'))
@@ -1330,7 +1330,7 @@ INSERT ALL
 		INTO LIKES (user_id, post_id, creation_date) VALUES (2, 52, TO_DATE('2024-05-11', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (4, 52, TO_DATE('2024-05-12', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (25, 52, TO_DATE('2024-05-12', 'YYYY-MM-DD'))
-			
+
 		-- Post 56 (피카츄) - Likes: 20
 		INTO LIKES (user_id, post_id, creation_date) VALUES (22, 56, TO_DATE('2022-07-22', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (23, 56, TO_DATE('2022-07-22', 'YYYY-MM-DD'))
@@ -1352,7 +1352,7 @@ INSERT ALL
 		INTO LIKES (user_id, post_id, creation_date) VALUES (3, 56, TO_DATE('2022-07-29', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (7, 56, TO_DATE('2022-07-29', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (8, 56, TO_DATE('2022-07-30', 'YYYY-MM-DD'))
-	
+
 		-- Post 72 (파이리) - Likes: 7
 		INTO LIKES (user_id, post_id, creation_date) VALUES (21, 72, TO_DATE('2023-09-01', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (31, 72, TO_DATE('2023-09-02', 'YYYY-MM-DD'))
@@ -1361,7 +1361,7 @@ INSERT ALL
 		INTO LIKES (user_id, post_id, creation_date) VALUES (23, 72, TO_DATE('2023-09-03', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (24, 72, TO_DATE('2023-09-04', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (32, 72, TO_DATE('2023-09-04', 'YYYY-MM-DD'))
-		
+
 		-- Post 87 (메타몽) - Likes: 9
 		INTO LIKES (user_id, post_id, creation_date) VALUES (21, 87, TO_DATE('2024-05-10', 'YYYY-MM-DD'))
 		INTO LIKES (user_id, post_id, creation_date) VALUES (33, 87, TO_DATE('2024-05-10', 'YYYY-MM-DD'))
@@ -1412,7 +1412,7 @@ INSERT ALL
 
     -- Post 31 (프로도의 한탄글) - Comments: 1
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20011, 31, 8, '흥! 그래도 사줄거잖아?', TO_DATE('2024-05-18', 'YYYY-MM-DD'), NULL)
-    
+
     -- Post 46 (쿠로미의 라이벌 선언) - Comments: 2, Replies: 1
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20012, 46, 10, '쿠로미도 참~ 같이 사이좋게 지내자!', TO_DATE('2023-10-01', 'YYYY-MM-DD'), NULL)
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20013, 46, 11, '흥! 누가 친구래!', TO_DATE('2023-10-01', 'YYYY-MM-DD'), 20012) -- 대댓글
@@ -1429,7 +1429,7 @@ INSERT ALL
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20022, 58, 9, '정말 좋아하는 게 느껴져요!', TO_DATE('2023-02-14', 'YYYY-MM-DD'), NULL)
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20023, 58, 24, '이상해.. (케첩이..?)', TO_DATE('2023-02-14', 'YYYY-MM-DD'), NULL)
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20024, 58, 21, '피카피! (맛있어!)', TO_DATE('2023-02-14', 'YYYY-MM-DD'), 20023) -- 대댓글
-    
+
     -- Post 67 (피카츄와 라이언 콜라보) - 인기 게시물 2! Comments: 11, Replies: 4
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20025, 67, 2, '라이언님과 피카츄님! 최고의 조합!', TO_DATE('2024-05-10', 'YYYY-MM-DD'), NULL)
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20026, 67, 5, '둘 다 노란색이라 더 귀여워요!', TO_DATE('2024-05-10', 'YYYY-MM-DD'), NULL)
@@ -1454,7 +1454,7 @@ INSERT ALL
 
     -- Post 88 (갸라도스의 분노) - Comments: 1
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20043, 88, 35, '갸라도스님... 진정하세요... ㅠㅠ', TO_DATE('2024-05-08', 'YYYY-MM-DD'), NULL)
-    
+
     -- Post 90 (오박사의 당부) - Comments: 4
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20044, 90, 21, '피카피카! (네, 박사님!)', TO_DATE('2024-05-21', 'YYYY-MM-DD'), NULL)
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20045, 90, 22, '열심히 하고 있어요!', TO_DATE('2024-05-21', 'YYYY-MM-DD'), NULL)
@@ -1495,7 +1495,7 @@ INSERT ALL
     -- Post 73 (파이리의 다짐) - Comments: 2
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20066, 73, 21, '피카! (응원할게!)', TO_DATE('2024-05-15', 'YYYY-MM-DD'), NULL)
     INTO COMMENTS (comment_id, post_id, user_id, comment_text, creation_date, parent_comment_id) VALUES (20067, 73, 31, '파이리, 너라면 할 수 있어.', TO_DATE('2024-05-16', 'YYYY-MM-DD'), NULL)
-    
+
 
 
 
