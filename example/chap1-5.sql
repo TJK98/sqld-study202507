@@ -109,7 +109,3 @@ select post_id,
  where creation_date >= to_date('2024-01-01','YYYY-MM-DD') -- 1. 개별 '좋아요' 데이터를 먼저 필터링
  group by post_id -- 2. 게시물 ID 별로 그룹화
 having count(*) >= 20; -- 3. 그룹별 '좋아요' 수가 20개 이상인 그룹만 필터링
-
-select *
-  from pizza
- where is_available = true;
