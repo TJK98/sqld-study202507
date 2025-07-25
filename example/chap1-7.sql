@@ -134,3 +134,92 @@ on pt.post_id = p.post_id
    and pt.post_id = p.post_id
    and h.tag_name like '%일상%'
  order by pt.post_id;
+
+-- 댓글 테이블 조회
+select *
+  from comments;
+select *
+  from posts;
+
+-- 댓글과 게시물의 피드의 내용을 함께 조회
+
+-- 오라클 조인, 표준 조인 (데이터 베이스에 따른 분류)
+-- 내부 조인, 외부 조인 (데이터 베이스와 관계없이 분류)
+
+-- 오라클 조인
+select p.post_id,
+       p.content,
+       p.view_count,
+       to_char(
+          p.creation_date,
+          'YYYY-MM-DD HH24:MI:SS'
+       ) as created_at,
+       c.comment_text
+  from posts p,
+       comments c
+ where p.post_id = c.post_id;
+
+-- 표준 조인
+select p.post_id,
+       p.content,
+       p.view_count,
+       to_char(
+          p.creation_date,
+          'YYYY-MM-DD HH24:MI:SS'
+       ) as created_at,
+       c.comment_text
+  from posts p
+ inner join comments c
+on p.post_id = c.post_id;
+
+select p.user_id,
+       u.username,
+       p.post_id,
+       p.content,
+       p.view_count,
+       to_char(
+          p.creation_date,
+          'YYYY-MM-DD'
+       ) as created_at,
+       c.user_id,
+       u2.username as commenter,
+       c.comment_text
+  from posts p
+ inner join comments c
+on p.post_id = c.post_id
+ inner join users u
+on p.user_id = u.user_id
+ inner join users u2
+on c.user_id = u2.user_id;
+
+-- OUTER JOIN
+select *
+  from users;          -- 필수정보
+select *
+  from user_profiles;  -- 선택정보
+
+-- INNER JOIN의 문제점: 값이 매칭되는 경우만 조회되므로
+-- 상세프로필을 안적은 회원은 나타나지 않음.
+select u.user_id,
+       u.username,
+       u.email,
+       up.full_name,
+       up.bio
+  from users u
+ inner join user_profiles up
+on u.user_id = up.user_id;
+
+
+-- 우선 회원정보는 모두 조회하고 단, 상세프로필이 있으면 걔네만 같이조회해라
+select *
+  from users u
+  left outer join user_profiles up
+on u.user_id = up.user_id
+ order by u.user_id;
+
+-- 오라클 외부 조인: LEFT -> 오른쪽 조건에 (+), RIGHT -> 왼쪽 조건에 (+)
+select *
+  from users u,
+       user_profiles up
+ where u.user_id = up.user_id (+)
+ order by u.user_id;
