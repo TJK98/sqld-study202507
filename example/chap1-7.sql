@@ -71,6 +71,22 @@ select *
 select *
   from departments;
 
+-- 카티션 곱
+select *
+  from employees,
+       departments;
+
+-- 카티션 곱 (CROSS JOIN)
+-- 두 테이블의 모든 조합을 조회합니다.
+select *
+  from employees
+ cross join departments;
+
+select *
+  from employees e
+ inner join departments d
+on e.dept_id = d.id;
+
 -- oracle JOIN 문법
 -- JOIN은 두 테이블을 가로로 합치는 문법
 -- x * y 형태로, x는 EMPLOYEES 테이블의 행 수, y는 DEPARTMENTS 테이블의 행 수가 됩니다.
@@ -223,3 +239,51 @@ select *
        user_profiles up
  where u.user_id = up.user_id (+)
  order by u.user_id;
+
+-- NATURAL JOIN
+-- NATURAL JOIN은 두 테이블에서 같은 이름의 컬럼을 기준으로 자동으로 조인합니다.
+-- NATURAL JOIN은 공통 조인 매칭 컬럼의 별칭을 표기해선 안 된다.
+select user_id,
+       u.username,
+       u.email,
+       up.full_name,
+       up.bio
+  from users u
+natural join user_profiles up;
+--on u.user_id = up.user_id;
+
+select *
+  from users u
+ inner join user_profiles up
+on u.user_id = up.user_id;
+
+select *
+  from users u
+natural join user_profiles up;
+--on u.user_id = up.user_id;
+
+-- USING 절
+-- USING 절은 NATURAL JOIN과 비슷하지만, 명시적으로 조인할 컬럼을 지정할 수 있습니다.
+-- USING 절은 공통 조인 매칭 컬럼의 별칭을 표기해선 안 된다.
+-- USING 절은 두 테이블에서 같은 이름의 컬럼을 기준으로 조인합니다
+select user_id,
+       u.username,
+       u.email,
+       up.full_name,
+       up.bio
+  from users u
+  --NATURAL JOIN user_profiles up;
+  join user_profiles up
+using ( user_id );
+--on u.user_id = up.user_id;
+
+-- SELF JOIN
+-- 자기 자신과 조인하는 SELF JOIN
+select u1.user_id,
+       u1.username,
+       u1.email,
+       nvl(u2.username, '상사 없음') as manager_name -- 매니저가 없을 경우 '상사 없음'으로 표시
+  from users u1
+  left join users u2 -- null일 수도 있는 매니저 정보를 조회하기 위해 LEFT JOIN 사용
+on u1.manager_id = u2.user_id
+ order by u1.user_id;
