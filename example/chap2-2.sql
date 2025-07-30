@@ -164,8 +164,10 @@ on l.user_id = u.user_id
 -- 2개의 칼럼을 반환하는 서브 쿼리면 2개의 칼럼을 비교해야 한다.
 select *
   from posts
- where (user_id, post_id) in (
-   select user_id, post_id
+ where ( user_id,
+         post_id ) in (
+   select user_id,
+          post_id
      from likes
     where user_id = (
       select user_id
@@ -173,3 +175,159 @@ select *
        where username = 'pikachu'
    )
 );
+
+-- 인라인 뷰 서브쿼리 (FROM 절에 서브쿼리 사용)
+-- 사용자별 피드 작성 개수
+-- 테이블이 들어갈 수 있는 곳은 모두 서브쿼리를 사용할 수 있다.
+select pc.user_id,
+       u.username,
+       pc.post_count
+  from (
+   select user_id,
+          count(*) as post_count
+     from posts
+    group by user_id
+) pc
+  join users u
+on pc.user_id = u.user_id;
+
+select pc.user_id,
+       u.username,
+       pc.post_count
+  from users u
+  join (
+   select user_id,
+          count(*) as post_count
+     from posts
+    group by user_id
+) pc
+on pc.user_id = u.user_id;
+
+select user_id,
+       count(*) as total_likes
+  from likes
+ group by user_id
+ order by user_id;
+
+select a.user_id,
+       a.total_likes
+  from (
+   select user_id,
+          count(*) as total_likes
+     from likes
+    group by user_id
+) a,
+       users u
+ where a.user_id = u.user_id;
+
+-- 스칼라 서브쿼리 (SELECT 절에 서브쿼리 사용)
+-- 유저 정보(USERS)를 조회 + 상세 bio 정보(USER_PROFILE)도 같이 조회
+select *
+  from users;
+select *
+  from user_profile;
+
+-- 스칼라 서브쿼리 == 연관 서브쿼리
+-- 연관 서브쿠리 : 서브쿼리가 한 번 실행되고 끝나는 게 아닌 바깥 쪽 메인 쿼리 한 행을 실행할 때마다 서브쿼리가 반복 실행된다.
+select u.user_id,
+       u.username,
+       ( -- 스칼라 서브쿼리
+          select bio
+            from user_profiles up
+           where up.user_id = u.user_id
+       ) as bio
+  from users u;
+
+-- 피드 별로 피드의 id와 피드의 내용과 각 피드가 받은 좋아요 수를 한 번에 조회
+select post_id,
+       content
+  from posts;
+
+select post_id,
+       count(*) as like_count
+  from likes
+ group by post_id
+ order by post_id;
+
+select post_id,
+       count(*) as reply_count
+  from comments
+ group by post_id
+ order by post_id;
+
+
+select p.post_id,
+       p.content,
+       nvl(
+          lc.like_count,
+          0
+       ) as like_count,
+       nvl(
+          rc.reply_count,
+          0
+       ) as reply_count
+  from posts p
+  left outer join (
+   select post_id,
+          count(*) as like_count
+     from likes
+    group by post_id
+) lc
+on p.post_id = lc.post_id
+  left outer join (
+   select post_id,
+          count(*) as reply_count
+     from comments
+    group by post_id
+) rc
+on rc.post_id = p.post_id
+ order by p.post_id;
+
+-- 스칼라 조인
+select p.post_id,
+       p.content,
+       (
+          select count(*)
+            from likes l
+           where l.post_id = p.post_id
+       ) as "좋아요 수",
+       (
+          select count(*)
+            from comments c
+           where c.post_id = p.post_id
+       ) as "댓글 수"
+  from posts p;
+
+
+-- 게시물을 한 번이라도 작성한 적이 있는 모든 사용자의 이름을 알려주는 쿼리
+select distinct p.user_id,
+                u.username
+  from posts p
+  join users u
+on p.user_id = u.user_id
+ order by p.user_id;
+
+-- EXISTS 서브쿼리
+-- EXISTS 서브쿼리는 서브쿼리의 결과가 존재하는지 여부를 확인하는 데 사용된다.
+-- EXISTS 서브쿼리는 서브쿼리의 결과가 존재하면 true를 반환하고, 결과가 없으면 false를 반환한다.
+select u.user_id,
+       u.username
+  from users u
+ where exists (
+   select 1 -- 1은 아무 값이나 상관없다. EXISTS 서브쿼리는 결과가 존재하는지만 확인한다.
+     from posts p
+    where p.user_id = u.user_id
+);
+
+-- NOT EXISTS 서브쿼리
+-- NOT EXISTS 서브쿼리는 서브쿼리의 결과가 존재하지 않는지 여부를 확인하는 데 사용된다.
+-- NOT EXISTS 서브쿼리는 서브쿼리의 결과가 없으면 true를 반환하고, 결과가 있으면 false를 반환한다.
+select u.user_id,
+       u.username
+  from users u
+ where not exists (
+   select 'a' -- 'a'는 아무 값이나 상관없다. EXISTS 서브쿼리는 결과가 존재하는지만 확인한다.
+     from posts p
+    where p.user_id = u.user_id
+)
+ order by u.user_id;
