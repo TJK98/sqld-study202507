@@ -1,27 +1,25 @@
-
 -- 문제 1
-SELECT *
-FROM HASHTAGS
-;
+select *
+  from hashtags;
 
 -- 문제 2
-SELECT CONTENT, CREATION_DATE
-FROM POSTS
-;
+select content,
+       creation_date
+  from posts;
 
 -- 문제 3
-SELECT DISTINCT USER_ID
-FROM LIKES
-;
+select distinct user_id
+  from likes;
 
 -- 문제 4
-SELECT
-  FULL_NAME AS "전체 이름"
-  , BIO 자기소개
-FROM USER_PROFILES
-;
+select full_name as "전체 이름",
+       bio 자기소개
+  from user_profiles;
 
 -- 문제 5
-SELECT '[' || USER_ID || ']님이 [' || COMMENT_TEXT || '] 라고 댓글을 남겼습니다.' AS "댓글 알림"
-FROM COMMENTS
-;
+select '['
+       || user_id
+       || ']님이 ['
+       || comment_text
+       || '] 라고 댓글을 남겼습니다.' as "댓글 알림"
+  from comments;
